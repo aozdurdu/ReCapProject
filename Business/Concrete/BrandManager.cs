@@ -1,4 +1,7 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results.Abstract;
+using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
@@ -17,33 +20,40 @@ namespace Business.Concrete
             _brandDal = brandDal;
         }
 
-        public void Add(Brand brand)
+        public IResult Add(Brand brand)
         {
-            _brandDal.Add(brand);
-            Console.WriteLine("New brand added to DB");
-        }
+            if (brand.BrandName.Length < 3)
+            {
+                return new ErrorResult(Messages.BrandNameInvalid);
+            }
 
-        public void Update(Brand brand)
+            _brandDal.Add(brand);
+            return new SuccessResult(Messages.BrandAdded);
+        }
+        public IResult Update(Brand brand)
         {
             _brandDal.Update(brand);
-            Console.WriteLine("Brand is updated in DB");
+            return new SuccessResult(Messages.BrandUpdated);
         }
-
-        public void Delete(Brand brand)
+        public IResult Delete(Brand brand)
         {
             _brandDal.Delete(brand);
-            Console.WriteLine("Brand is deleted from DB");
+            return new SuccessResult(Messages.BrandDeleted);
         }
 
-        public List<Brand> GetAll()
+        public IDataResult<List<Brand>> GetAll()
         {
-            return _brandDal.GetAll();
+            if (DateTime.Now.Hour == 22)
+            {
+                return new ErrorDataResult<List<Brand>>(Messages.MaintenanceTime);
+            }
+
+            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(), Messages.BrandsListed);
         }
 
-        public List<Brand> GetById(int Id)
+        public IDataResult<Brand> GetById(int brandId)
         {
-            return _brandDal.GetAll(p => p.BrandId == Id);
+            return new SuccessDataResult<Brand>(_brandDal.Get(p => p.BrandId == brandId));
         }
-
     }
 }
