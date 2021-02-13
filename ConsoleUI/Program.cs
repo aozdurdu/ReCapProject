@@ -16,6 +16,11 @@ namespace ConsoleUI
             //CarDetailsTest();          
         }
 
+        private static void UserTest()
+        {
+            throw new NotImplementedException();
+        }
+
         /*private static void CarDetailsTest() //For Result structure
         {
             CarManager carManager = new CarManager(new EfCarDal());

@@ -11,7 +11,7 @@ namespace Business.Constants
 
         //DB Related Messages---
 
-        //DB_Add Related Messages
+        //DB_Car Related Messages
         public static string CarAdded = "New car is added to DB";
         public static string CarUpdated = "Car is updated in DB";
         public static string CarDeleted = "Car is deleted from DB";
@@ -31,5 +31,26 @@ namespace Business.Constants
         public static string BrandDeleted = "Brand is deleted from DB";
         public static string BrandNameInvalid = "Not added. Brand name should be more than 2 characters";
         public static string BrandsListed = "Brands listed";
+
+        //DB_User Related Messages
+        public static string UserAdded = "New user is added to DB";
+        public static string UserUpdated = "User is updated in DB";
+        public static string UserDeleted = "User is deleted from DB";
+        public static string UserNameInvalid = "Not added. User first name and/or last name should be more than 2 characters";
+        public static string UsersListed = "Users listed";
+
+        //DB_Customer Related Messages
+        public static string CustomerAdded = "New customer is added to DB";
+        public static string CustomerUpdated = "Customer is updated in DB";
+        public static string CustomerDeleted = "Customer is deleted from DB";
+        public static string CustomerNameInvalid = "Not added. Customer name should be more than 2 characters";
+        public static string CustomersListed = "Customers listed";
+
+        //DB_Rental Related Messages
+        public static string RentalAdded = "New rental is added to DB";
+        public static string RentalNotAdded = "New rental is added to DB";
+        public static string RentalUpdated = "Rental is updated in DB";
+        public static string RentalDeleted = "Rental is deleted from DB";
+        public static string RentalsListed = "Rentals listed";
     }
 }
