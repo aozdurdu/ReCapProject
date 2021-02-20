@@ -15,7 +15,8 @@ namespace Business.Constants
         public static string CarAdded = "New car is added to DB";
         public static string CarUpdated = "Car is updated in DB";
         public static string CarDeleted = "Car is deleted from DB";
-        public static string CarDescriptionInvalid = "Not added. Car description should be more than 2 characters and car daily price should be bigger than 0";
+        public static string CarDescriptionInvalid = "Car description should be more than 2 characters";
+        public static string CarDailyPriceInvalid = "Car daily price should be bigger than 0";
         public static string CarsListed = "Cars listed";
 
         //DB_Color Related Messages

@@ -1,11 +1,15 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
 using Entities.DTOs;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -24,18 +28,15 @@ namespace Business.Concrete
         {
             _carDal = carDal;
         }
-
+        
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
-            if (car.Description.Length <= 2 || car.DailyPrice <= 0)
-            {
-                return new ErrorResult(Messages.CarDescriptionInvalid);
-            }
-
             _carDal.Add(car);
             return new SuccessResult(Messages.CarAdded);
         }
 
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Update(Car car)
         {
             _carDal.Update(car);
@@ -50,11 +51,6 @@ namespace Business.Concrete
 
         public IDataResult<List<Car>> GetAll()
         {
-            if (DateTime.Now.Hour == 23)
-            {
-                return new ErrorDataResult<List<Car>>(Messages.MaintenanceTime);
-            }
-
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.CarsListed);
         }
 
@@ -87,61 +83,6 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
         }
-
-
-        /***Before Result structure***
-        public void Add(Car car)
-        {
-           if (car.Description.Length > 2 && car.DailyPrice > 0)
-            {
-                _carDal.Add(car);
-                Console.WriteLine("New car added to DB");
-            }
-           else
-            {
-                Console.WriteLine("Not added. Car description should be more than 2 characters and car daily price should be bigger than 0");
-            }
-
-        }
-
-        public List<Car> GetAll()
-        {
-            //Business codes in here
-            
-            return _carDal.GetAll();
-        }
-
-       public List<Car> GetCarsByBrandId(int brandId)
-        {
-            return _carDal.GetAll(p => p.BrandId==brandId);
-        }
-
-        public List<Car> GetCarsByColorId(int colorId)
-        {
-            return _carDal.GetAll(p => p.ColorId == colorId);
-        }
-
-        public List<Car> GetById(int Id)
-        {
-            return _carDal.GetAll(p => p.CarId == Id);
-        }
-
-        public void Update(Car car)
-        {
-            _carDal.Update(car);
-            Console.WriteLine("Car is updated in DB");
-        }
-
-        public void Delete(Car car)
-        {
-            _carDal.Delete(car);
-            Console.WriteLine("Car is deleted from DB");
-        }
-
-        public List<CarDetailDto> GetCarDetails()
-        {
-            return _carDal.GetCarDetails();
-        }
-        */
+                
     }
 }

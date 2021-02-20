@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
@@ -19,17 +21,14 @@ namespace Business.Concrete
             _userDal = userdal;
         }
 
+        [ValidationAspect(typeof(UserValidator))]
         public IResult Add(User user)
         {
-            if (user.FirstName.Length < 3 || user.LastName.Length < 3)
-            {
-                return new ErrorResult(Messages.UserNameInvalid);
-            }
-
             _userDal.Add(user);
             return new SuccessResult(Messages.UserAdded);
         }
-    
+
+        [ValidationAspect(typeof(UserValidator))]
         public IResult Update(User user)
         {
             _userDal.Update(user);
@@ -44,11 +43,6 @@ namespace Business.Concrete
 
         public IDataResult<List<User>> GetAll()
         {
-            if (DateTime.Now.Hour == 22)
-            {
-                return new ErrorDataResult<List<User>>(Messages.MaintenanceTime);
-            }
-
             return new SuccessDataResult<List<User>>(_userDal.GetAll(), Messages.UsersListed);
         }
         
