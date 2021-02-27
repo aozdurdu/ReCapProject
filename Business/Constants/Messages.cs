@@ -49,9 +49,17 @@ namespace Business.Constants
 
         //DB_Rental Related Messages
         public static string RentalAdded = "New rental is added to DB";
-        public static string RentalNotAdded = "New rental is added to DB";
+        public static string RentalNotAdded = "New rental is not added to DB";
         public static string RentalUpdated = "Rental is updated in DB";
         public static string RentalDeleted = "Rental is deleted from DB";
         public static string RentalsListed = "Rentals listed";
+
+        //DB_CarImage Related Messages
+        public static string CarImageAdded = "New car image is added to DB";
+        public static string CarImageNotAdded = "New car image is not added to DB";
+        public static string CarImageUpdated = "Car image is updated in DB";
+        public static string CarImageDeleted = "Car image is deleted from DB";
+        public static string CarImagesListed = "Car images listed";
+        public static string MaxCarImageCountLimit = "Max limit for car images reached";
     }
 }
