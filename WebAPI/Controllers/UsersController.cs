@@ -20,7 +20,7 @@ namespace WebAPI.Controllers
         {
             _userService = userService;
         }
-
+        /*
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
@@ -76,6 +76,6 @@ namespace WebAPI.Controllers
                 return Ok(result);
             }
             return BadRequest(result);
-        }
+        }*/
     }
 }
