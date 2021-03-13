@@ -1,13 +1,13 @@
-﻿using Business.Abstract;
-using Entities.Concrete;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Business.Concrete;
-using DataAccess.Concrete.EntityFramework;
+using Business.Abstract;
+using Core.Entities.Concrete;
+using Entities.Concrete;
+using Entities.DTOs;
 
 namespace WebAPI.Controllers
 {
@@ -20,7 +20,7 @@ namespace WebAPI.Controllers
         {
             _userService = userService;
         }
-        /*
+        
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
@@ -76,6 +76,6 @@ namespace WebAPI.Controllers
                 return Ok(result);
             }
             return BadRequest(result);
-        }*/
+        }
     }
 }
