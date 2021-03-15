@@ -21,13 +21,11 @@ namespace Business.Concrete
     public class CarImageManager : ICarImageService
     {
         ICarImageDal _carImageDal;
-        ICarService _carService;
 
-        public CarImageManager(ICarImageDal carImageDal, ICarService carService)
+        public CarImageManager(ICarImageDal carImageDal)
         {
             _carImageDal = carImageDal;
-            _carService = carService;
-        }
+          }
 
         [ValidationAspect(typeof(CarImageValidator))]
         public IResult Add(FileUpload file, string path, CarImage carImage)

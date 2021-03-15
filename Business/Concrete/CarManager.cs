@@ -30,10 +30,12 @@ namespace Business.Concrete
     public class CarManager : ICarService
     {
         ICarDal _carDal;
+        ICarImageService _carImageService;
 
-        public CarManager(ICarDal carDal)
+        public CarManager(ICarDal carDal, ICarImageService carImageService)
         {
             _carDal = carDal;
+            _carImageService = carImageService;
         }
 
 
@@ -93,9 +95,28 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.ModelYear >= min && p.ModelYear <= max));
         }
 
-        public IDataResult<List<CarDetailDto>> GetCarDetails()
+        public IDataResult<List<CarDetailDto>> GetAllCarDetails()
         {
-            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetAllCarDetails());
+        }
+        public IDataResult<List<CarDetailDto>> GetCarDetailsByBrand(int brandId)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetAllCarDetails(c => c.BrandId == brandId));
+        }
+
+        public IDataResult<List<CarDetailDto>> GetCarDetailsByColor(int colorId)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetAllCarDetails(c => c.ColorId == colorId));
+        }
+
+        public IDataResult<List<CarDetailDto>> GetCarDetails(int brandId, int colorId)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetAllCarDetails(c => c.BrandId == brandId && c.ColorId == colorId && c.BrandId == brandId));
+        }
+
+        public IDataResult<List<CarDetailDto>> GetCarDetails(int carId)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetAllCarDetails(c => c.CarId == carId));
         }
         [TransactionScopeAspect]
         public IResult AddTransactionalTest(Car car)
