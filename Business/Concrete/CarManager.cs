@@ -16,10 +16,13 @@ using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
 using Entities.DTOs;
 using FluentValidation;
+using Microsoft.EntityFrameworkCore.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Linq.Expressions;
+using System.Reflection;
 
 namespace Business.Concrete
 {
@@ -95,29 +98,6 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.ModelYear >= min && p.ModelYear <= max));
         }
 
-        public IDataResult<List<CarDetailDto>> GetAllCarDetails()
-        {
-            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetAllCarDetails());
-        }
-        public IDataResult<List<CarDetailDto>> GetCarDetailsByBrand(int brandId)
-        {
-            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetAllCarDetails(c => c.BrandId == brandId));
-        }
-
-        public IDataResult<List<CarDetailDto>> GetCarDetailsByColor(int colorId)
-        {
-            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetAllCarDetails(c => c.ColorId == colorId));
-        }
-
-        public IDataResult<List<CarDetailDto>> GetCarDetails(int brandId, int colorId)
-        {
-            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetAllCarDetails(c => c.BrandId == brandId && c.ColorId == colorId && c.BrandId == brandId));
-        }
-
-        public IDataResult<List<CarDetailDto>> GetCarDetails(int carId)
-        {
-            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetAllCarDetails(c => c.CarId == carId));
-        }
         [TransactionScopeAspect]
         public IResult AddTransactionalTest(Car car)
         {
@@ -131,5 +111,9 @@ namespace Business.Concrete
             return null;
         }
 
+        public IDataResult<List<CarDetailDto>> GetCarsDetails(CarDetailFilterDto filterDto)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetAllCarDetailsByFilter(filterDto));
+        }
     }
 }

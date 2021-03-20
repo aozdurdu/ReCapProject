@@ -43,19 +43,49 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
-
-        [HttpGet("getrentaldetail")]
-        public IActionResult GetCarDetail()
+        
+        [HttpGet("getallrentaldetails")]
+        public IActionResult GetAllRentalDetails()
         {
-            var result = _rentalService.GetRentalDetails();
+            var result = _rentalService.GetAllRentalDetails();
             if (result.Success)
             {
                 return Ok(result);
             }
-
             return BadRequest(result);
         }
 
+        [HttpGet("getallbycustomerid")]
+        public IActionResult GetAllByCustomerId(int customerId)
+        {
+            var result = _rentalService.GetAllByCustomerId(customerId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+        [HttpGet("getlastbycarid")]
+        public IActionResult GetLastByCarId(int carId)
+        {
+            var result = _rentalService.GetLastByCarId(carId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpPost("isrentable")]
+        public IActionResult IsRentable(Rental rental)
+        {
+            var result = _rentalService.IsRentable(rental);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return Ok(result);
+        }
         [HttpPost("add")]
         public IActionResult Add(Rental rental)
         {
